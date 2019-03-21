@@ -22,6 +22,7 @@ export const headTemplate = ({
       })
   )].join('\n');
 
+  const cspSetting = process.env.OVERRIDE_METEOR_CORDOVA_CSP || 'default-src * gap: data: blob: \'unsafe-inline\' \'unsafe-eval\' ws: wss:;';
   return [
     '<html>',
     '<head>',
@@ -29,7 +30,7 @@ export const headTemplate = ({
     '  <meta name="format-detection" content="telephone=no">',
     '  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, viewport-fit=cover">',
     '  <meta name="msapplication-tap-highlight" content="no">',
-    '  <meta http-equiv="Content-Security-Policy" content="default-src * gap: data: blob: \'unsafe-inline\' \'unsafe-eval\' ws: wss:;">',
+    `  <meta http-equiv="Content-Security-Policy" content="${cspSetting}">`,
 
   (headSections.length === 1)
     ? [cssBundle, headSections[0]].join('\n')
